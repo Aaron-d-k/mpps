@@ -64,7 +64,7 @@ set -e
 if ((${#rulearg} == 0)); then
 echo "Rule unspecified; compiling mpps without parallel evolution..."
 
-echo "Options used: DM_MAX_PERIOD=$MAXPERIOD DM_W=$WIDTH DM_MAX_TREE_SIZE=$MAX_TREE_SIZE DM_VERBOSITY=$VERBOSITY $MORE_OPTIONS $SYMMETRY -DMACRO_OPTIONS"
+echo "Options used: M_MAX_PERIOD=$MAXPERIOD M_W=$WIDTH M_MAX_TREE_SIZE=$MAX_TREE_SIZE M_VERBOSITY=$VERBOSITY $MORE_OPTIONS $SYMMETRY MACRO_OPTIONS"
 $compiler mpps.cpp -O3 -march=native -Wall -Wextra -std=c++20 -o mpps -DM_MAX_PERIOD=$MAXPERIOD -DM_W=$WIDTH -DM_MAX_TREE_SIZE=$MAX_TREE_SIZE -DM_VERBOSITY=$VERBOSITY $MORE_OPTIONS $SYMMETRY -DMACRO_OPTIONS
 
 echo ""
@@ -74,6 +74,7 @@ fi
 
 
 if [ ! -f "genrc" ]; then
+git submodule update --init --recursive
 echo "Compiling genrulecode..."
 $compiler genrulecode.cpp -O3 -march=native -Wall -Wextra -std=c++20 -o genrc
 fi
@@ -86,7 +87,7 @@ echo "Generating code..."
 
 echo "Compiling mpps for rule $rulearg..."
 
-echo "Options used: DPARALLEL_EVOLVE DM_MAX_PERIOD=$MAXPERIOD DM_W=$WIDTH DM_MAX_TREE_SIZE=$MAX_TREE_SIZE DM_VERBOSITY=$VERBOSITY $MORE_OPTIONS $SYMMETRY DMACRO_OPTIONS"
+echo "Options used: PARALLEL_EVOLVE M_MAX_PERIOD=$MAXPERIOD M_W=$WIDTH M_MAX_TREE_SIZE=$MAX_TREE_SIZE M_VERBOSITY=$VERBOSITY $MORE_OPTIONS $SYMMETRY MACRO_OPTIONS"
 $compiler mpps.cpp -O3 -march=native -Wall -Wextra -std=c++20 -o mpps -DPARALLEL_EVOLVE -DM_MAX_PERIOD=$MAXPERIOD -DM_W=$WIDTH -DM_MAX_TREE_SIZE=$MAX_TREE_SIZE -DM_VERBOSITY=$VERBOSITY $MORE_OPTIONS $SYMMETRY -DMACRO_OPTIONS
 
 echo ""

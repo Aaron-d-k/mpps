@@ -116,9 +116,8 @@ bool find_implications(int gens)
 
 }
 
-double bitsused=0;
 
-void tryextend(size_t nodeidx, deque<size_t>& extensions)
+void tryextend(size_t nodeidx, deque<size_t>& extensions, double& bitssaved)
 {
     node& currnode = tree[nodeidx];
     int P = currnode.period();
@@ -148,7 +147,7 @@ void tryextend(size_t nodeidx, deque<size_t>& extensions)
     expanded_row forcedpos = (s3[min_unknown_gen.e1])&CELL_POSN;
     currnode.expand(s1, s2, min_unknown_gen.e1);
     
-    bitsused+=W-min_unknown_gen.e0;
+    bitssaved+=W-min_unknown_gen.e0;
 
     for (uint64_t i = 0; i < 1ull<<min_unknown_gen.e0; i++)
     {
@@ -194,7 +193,7 @@ void rulesearch(ll maxiter, ll minprintperiod)
     fingerprintdata.clearmemory();
     tree.clear();
     lowperiodhashes={};
-    bitsused=0;
+    double bitssaved=0;
 
     s3.fill(0);
     create_tree_node(s3, 1, 0, 0);
@@ -231,7 +230,7 @@ void rulesearch(ll maxiter, ll minprintperiod)
             if ((currtime-lastprinttime)>10s) 
             {
                 int depth = find_depth(curr);
-                clog << "\rdepth = " << depth << ", queue = " << extensions.size() << ", tree size = " << tree.size() << ", iter = " << iter << ", bits saved per iter = " << bitsused/iter;
+                clog << "\rdepth = " << depth << ", queue = " << extensions.size() << ", tree size = " << tree.size() << ", iter = " << iter << ", bits saved per iter = " << bitssaved/iter;
                 if (VERBOSITY>1 && recorddepth<depth) 
                 {
                     clog << "\n" << node_to_rle(curr,rule_name) << "\n"; 
@@ -255,31 +254,13 @@ void rulesearch(ll maxiter, ll minprintperiod)
         }
         else
         {
-            tryextend(curr,extensions);
+            tryextend(curr,extensions,bitssaved);
         }
     }
 
     if (VERBOSITY>0) 
     {
-        clog << "\nFinal tree size = " << tree.size() << ", Average bits saved = " << bitsused/iter << ", Final depth = " << find_depth(tree.size()-1) << endl;
-    }
-}
-
-void testextend()
-{
-    tree.clear();
-    lowperiodhashes={};
-    s3.fill(0);
-    create_tree_node(s3, 1, 0, 0);
-    s3[0]=1;
-    create_tree_node(s3, 1, 0, 0);
-
-    deque<size_t> extensions;
-    tryextend(1,extensions);
-
-    for (size_t i = 0; i < tree.size(); i++)
-    {
-        dbgv(node_to_rle(i,rule_name+"History"));
+        clog << "\nFinal tree size = " << tree.size() << ", Average bits saved = " << bitssaved/iter << ", Final depth = " << find_depth(tree.size()-1) << endl;
     }
 }
 
@@ -335,8 +316,6 @@ int main(int argc, char *argv[])
             throw runtime_error("Error while parsing command line arguments");
         }
     }
-
-
 
     auto lastprinttime=chrono::steady_clock::now()-2s;
     for (otca_rule r : ruleset)

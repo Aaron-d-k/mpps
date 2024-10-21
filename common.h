@@ -1,6 +1,6 @@
 //CREATED BY: mystical, 2024
 /*
-This is a search program named multiperiodphotonsearcher v0.2, which can be used to find
+This is a search program named multiperiodphotonsearcher v0.3-, which can be used to find
 photons with arbitrarily large periods. It can be set up to search for a specific period 
 (using the feature of forbidden periods) or it can be set up to search all periods less 
 than max period.
