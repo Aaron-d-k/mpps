@@ -85,7 +85,7 @@ bool find_implications(int gens)
             ) <<(j*4);
         }
 
-        #ifndef EVEN //assym untested
+        #ifndef EVEN
         uint64_t borderimpl1 = emptyborder_implication((s1[i]+s2[i])&cellmask);
         if (borderimpl1!=2)
         {

@@ -2,7 +2,7 @@ MPPS
 ----
 This is a search program named MultiPeriodPhotonSearcher v0.2, which can be used to find photons with arbitrarily large periods. It can be set up to search for a specific period (using the feature of forbidden periods) or it can be set up to search all periods less than max period.
 
-You can compile this program on linux it using the command 
+You can compile this program on linux using the command 
 
     bash recompile.sh -w 14 -p 50
 

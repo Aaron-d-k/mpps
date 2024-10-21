@@ -106,8 +106,6 @@ void test_pevo()
 #endif
 
 
-
-//TODO: test this
 uint64_t find_next_implication(uint64_t smin, uint64_t sunknown, uint64_t v)
 {
     assert(smin+sunknown<=8 && v<=2);
@@ -130,9 +128,9 @@ uint64_t find_next_implication(uint64_t smin, uint64_t sunknown, uint64_t v)
         if (poss==0) return 0;
     }
     return 2;
-}// much more advanced search space pruning can be done. this is pretty rudimentry and doesn't even depend on period..
+}
 
-// In any genration of any b2 ship of certain width, any two on cells in the rightmost 
+// In any generation of any b2 ship of certain width, any two on cells in the rightmost 
 // or leftmost column must have at least 2 cells in between.
 // Otherwise, the ship will escape its bounds due to b2a or b2c
 uint64_t emptyborder_implication(uint64_t numcornercell)
