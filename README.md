@@ -2,10 +2,6 @@ MPPS
 ----
 This is a search program named MultiPeriodPhotonSearcher v0.2, which can be used to find photons with arbitrarily large periods. It can be set up to search for a specific period (using the feature of forbidden periods) or it can be set up to search all periods less than max period.
 
-You will have to set some variables like max period 
-& width in the source code itself. Some parameters like forbidden periods and the rulespace or rulespace can 
-be specified as command line arguments.
-
 You can compile this program on linux it using the command 
 
     bash recompile.sh -w 14 -p 50
@@ -21,7 +17,8 @@ You can also search rulespaces by specifying 2 rules (a minrule and a maxrule) l
 
     ./mpps B245/S B245678/S678 f 2 3 5
 
-Many of the parameters (width, max period, symmetry, max tree size, etc) are to be given during compilation.
+Many parameters (width, max period, symmetry, max tree size, etc) are to be given during compilation.
+Some parameters (rule space, forbidden periods) are to be given during runtime.
 Some less useful parameters need to be set directly in the part of the code where it says 'SET PARAMETERS HERE' in file [common.h](common.h).
 
 You can use the program to bulk search a list of rules by feeding them in through stdin after enabling
