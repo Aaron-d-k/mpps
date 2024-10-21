@@ -1,4 +1,4 @@
-#include  "optimal5.h"
+#include  "optimal5/optimal5.h"
 #include "processrule.h"
 
 uint32_t gen_optimal5_inp(otca_rule rule)
@@ -17,6 +17,7 @@ uint32_t gen_optimal5_inp(otca_rule rule)
 
 
 string codetemplate = R"(
+string pevolve_rule_name = "<rule>";
 
 expanded_row parallel_evolve(expanded_row s, expanded_row v)
 {
@@ -37,7 +38,7 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    opt5::Optimiser opt("knuthies.dat");
+    opt5::Optimiser opt("optimal5/knuthies.dat");
 
     auto gv = opt.lookup(gen_optimal5_inp(parse_rule(argv[1])));
 

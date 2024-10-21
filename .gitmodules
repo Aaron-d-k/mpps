@@ -1,0 +1,3 @@
+[submodule "optimal5"]
+	path = optimal5
+	url = https://gitlab.com/apgoucher/optimal5.git

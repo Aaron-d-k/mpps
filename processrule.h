@@ -81,27 +81,9 @@ uint64_t rulelookup(uint64_t s, uint64_t v)
     return birth_survival[s+v*9];
 }
 
-// replace this with your own
-uint64_t parallel_evolve(uint64_t s, uint64_t v)
-{
-    uint64_t x5 = v, x4 = s&CELL_POSN, x3 = (s>>1)&CELL_POSN, x2 = (s>>2)&CELL_POSN, x1 = (s>>3)&CELL_POSN;
-    
-    //CODE AUTOMATICALLY GENERATED FOR B248/S023478
 
-    uint64_t x6 = x3 ^ x4;
-    uint64_t x7 = x1 | x6;
-    uint64_t x8 = x7 ^ x2;
-    uint64_t x9 = x8 &~ x4;
-    uint64_t x10 = x5 &~ x7;
-    uint64_t x11 = x9 | x10;
-    uint64_t x12 = x1 & x3;
-    uint64_t x13 = x11 &~ x12;
-    return x13;
-   
-}
-
-
-
+#ifdef PARALLEL_EVOLVE
+#include "pevo.h"
 
 void test_pevo()
 {
@@ -120,6 +102,9 @@ void test_pevo()
     }
     
 }
+
+#endif
+
 
 
 //TODO: test this

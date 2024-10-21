@@ -1,0 +1,12 @@
+a.out
+mpps
+asr
+gmon.out
+tsr
+genrc
+*.s
+*.asm
+outp*.txt
+*.gcov
+*.gcno
+*.gcda

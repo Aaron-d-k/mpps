@@ -301,6 +301,10 @@ int main(int argc, char *argv[])
         cin >> inprule;
         ruleset.push_back(parse_rule(inprule));
     }
+
+#else
+#ifdef PARALLEL_EVOLVE
+    ruleset.push_back(parse_rule(pevolve_rule_name));
 #else
     if (argc<2) throw runtime_error("too few command line arguments");
 
@@ -314,6 +318,7 @@ int main(int argc, char *argv[])
         usedargs++;
     } 
     ruleset=getrulespace(minrule,maxrule);
+#endif
 #endif
 
     if (argc > usedargs)
@@ -339,7 +344,7 @@ int main(int argc, char *argv[])
         set_rule(r);
         using namespace std::literals::chrono_literals;
         auto currtime= chrono::steady_clock::now();
-        if (VERBOSITY>=1 || (VERBOSITY==0&&(currtime-lastprinttime)>1s))
+        if (VERBOSITY>=1 || (VERBOSITY==0&&(currtime-lastprinttime)>5s))
         {
             clog<<"Searching rule " << rule_name << endl;
             lastprinttime=currtime;
